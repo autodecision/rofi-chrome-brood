@@ -1,0 +1,27 @@
+#!/bin/sh
+# Optional private Rofi 2.0 build. Never replaces the system executable.
+set -eu
+root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+source_dir="$root/.build/rofi"
+for tool in git meson ninja cc pkg-config bison flex; do
+    command -v "$tool" >/dev/null 2>&1 || {
+        printf 'Missing build tool: %s\n' "$tool" >&2
+        exit 1
+    }
+done
+if [ -e "$source_dir" ]; then
+    printf 'Build directory already exists: %s\nUse a fresh copy or review/remove .build/rofi before rebuilding.\n' "$source_dir" >&2
+    exit 1
+fi
+mkdir -p "$root/.build"
+git clone --no-checkout https://github.com/davatorium/rofi.git "$source_dir"
+git -C "$source_dir" checkout --detach 0b6aa8ba8b4879f00c3cc96f2e47a13c079fe814
+git -C "$source_dir" submodule update --init --recursive
+git -C "$source_dir" apply --check "$root/patches/rofi-2.0.0-complete-first-frame.patch"
+git -C "$source_dir" apply "$root/patches/rofi-2.0.0-complete-first-frame.patch"
+meson setup "$source_dir/build" "$source_dir" \
+    --prefix="$root/.runtime" --buildtype=release \
+    -Dwayland=enabled -Dxcb=disabled -Dimdkit=false -Dcheck=disabled
+meson compile -C "$source_dir/build"
+meson install -C "$source_dir/build"
+printf 'Built private Rofi. Start the theme with %s/launch\n' "$root"

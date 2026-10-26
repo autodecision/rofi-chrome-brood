@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd -- "$root"
+# Use the optional private build when present; standard Rofi remains supported.
+rofi_bin=${ROFI_CHROME_BROOD_BIN:-"$root/.runtime/bin/rofi"}
+if [ -x "$rofi_bin" ]; then
+    export ROFI_SYNC_THEME_IMAGES=1
+else
+    rofi_bin=rofi
+fi
+if [ "${1:-}" = "select" ]; then
+    shift
+    exec "$rofi_bin" -config "$root/config.rasi" -dmenu -sync -i -no-custom -no-show-icons \
+        -p 'Select' \
+        -theme-str 'entry { placeholder: "Search…"; }
+textbox-accept { content: "↵  Select"; }
+element { children: [element-text]; }' "$@"
+fi
+exec "$rofi_bin" -config "$root/config.rasi" -show drun "$@"

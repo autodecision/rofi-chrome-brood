@@ -1,0 +1,17 @@
+configuration {
+    dpi: 96;
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "breeze-dark";
+    drun-display-format: "{name}";
+    display-drun: "Applications";
+    matching: "fuzzy";
+    sort: true;
+    disable-history: false;
+    sidebar-mode: false;
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+    kb-cancel: "Escape,Shift+Escape,Control+Escape,Alt+Escape,Super+Escape,Shift+Control+Escape,Shift+Alt+Escape,Shift+Super+Escape,Control+Alt+Escape,Control+Super+Escape,Alt+Super+Escape,Shift+Control+Alt+Escape,Shift+Control+Super+Escape,Shift+Alt+Super+Escape,Control+Alt+Super+Escape,Shift+Control+Alt+Super+Escape,Control+g";
+}
+@theme "theme.rasi"

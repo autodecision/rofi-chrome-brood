@@ -1,0 +1,150 @@
+/* Chrome Brood — shared launcher and animation selector. */
+* {
+    font: "JetBrains Mono 11";
+    background-color: transparent;
+    text-color: #d4e0e8;
+    border-color: #4b6372;
+    spacing: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+window {
+    width: 560px;
+    height: 580px;
+    location: center;
+    anchor: center;
+    transparency: "real";
+    background-color: transparent;
+    background-image: url("shell.svg", both);
+    border: 0px;
+    border-radius: 0px;
+}
+mainbox {
+    padding: 24px 44px 29px;
+    spacing: 0px;
+    children: [ header, inputbar, listview, footer ];
+}
+header {
+    expand: false;
+    orientation: horizontal;
+    children: [ header-left, header-title, header-right ];
+    margin: 0px 0px 42px;
+    height: 30px;
+}
+header-left, header-right {
+    expand: true;
+}
+header-title {
+    expand: false;
+    orientation: horizontal;
+    children: [ prompt ];
+    padding: 2px 0px;
+}
+prompt {
+    expand: false;
+    font: "JetBrains Mono Bold 11";
+    vertical-align: 0.5;
+    text-color: #e1edf4;
+}
+inputbar {
+    expand: false;
+    children: [ textbox-search, entry, num-filtered-rows ];
+    orientation: horizontal;
+    padding: 11px 13px;
+    spacing: 12px;
+    margin: 0px 0px 14px;
+    background-image: linear-gradient(to bottom, #03090f, #13232e);
+    border: 1px;
+    border-color: #405967;
+    border-radius: 9px 3px 9px 3px;
+}
+textbox-search {
+    expand: false; content: "⌕";
+    text-color: #9bb9cb;
+    font: "JetBrains Mono 14";
+    }
+entry {
+    expand: true;
+    placeholder: "Search applications…";
+    placeholder-color: #718795;
+    text-color: #edf6fc;
+    cursor-color: #c2e0f2;
+    vertical-align: 0.5;
+}
+num-filtered-rows {
+    expand: false; text-color: #647e8f;
+    font: "JetBrains Mono 9";
+    vertical-align: 0.5;
+    }
+listview {
+    lines: 10;
+    columns: 1;
+    fixed-height: true;
+    dynamic: false;
+    expand: true;
+    scrollbar: true;
+    cycle: true;
+    spacing: 3px;
+}
+element {
+    orientation: horizontal;
+    children: [ element-icon, element-text ];
+    padding: 6px 11px;
+    spacing: 12px;
+    border: 1px;
+    border-color: transparent;
+    border-radius: 7px 2px 7px 2px;
+    text-color: #bdcdd8;
+}
+element alternate.normal { background-color: #111e2866;
+    }
+element normal.active, element alternate.active {
+    background-color: #1a2a34;
+    border-color: #415c6c;
+    text-color: #e5f1f8;
+}
+element selected.normal, element selected.active {
+    background-image: linear-gradient(to bottom, #e5edf2, #afc1cc, #718b9c, #c3d1db);
+    background-color: #b8cbd7;
+    text-color: #081723;
+    border-color: #d5e3ec;
+}
+element-icon { size: 20px;
+    }
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+    highlight: bold underline;
+}
+element-text selected.normal, element-text selected.active { text-color: #06121c;
+    }
+scrollbar {
+    width: 4px;
+    handle-width: 3px;
+    handle-color: #647e8f;
+    background-color: #101d27;
+    handle-rounded-corners: true;
+    margin: 3px 0px 3px 8px;
+}
+footer {
+    expand: false;
+    orientation: horizontal;
+    children: [ textbox-accept, textbox-close ];
+    margin: 22px 0px 0px;
+    height: 20px;
+}
+textbox-accept, textbox-close {
+    expand: true;
+}
+textbox-accept { content: "↵  Open";
+    font: "JetBrains Mono 9";
+    text-color: #b2c5d1;
+    vertical-align: 0.5;
+    }
+textbox-close { content: "Esc  Close";
+    font: "JetBrains Mono 9";
+    text-color: #7892a3;
+    horizontal-align: 1.0;
+    vertical-align: 0.5;
+    }
